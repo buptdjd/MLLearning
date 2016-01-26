@@ -26,7 +26,6 @@ if __name__ == '__main__':
     # get the 1 row and 1 col value from csv file
     # data from disk csv
     data = fileUtils.read_csv(filename)
-
     print data[0][0]
 
     # another method to get 1 row and 1 col value from csv file
