@@ -13,11 +13,14 @@ class FileUtils:
         f.write(data)
         f.close()
 
+    # use normal file utils to resolve the csv files
     def read(self, filename):
         f = open(filename, "r+")
         data = f.read()
+        f.close()
         return data
 
+    # use the csv utils to resolve the csv files
     def read_csv(self, filename):
         contents = csv.reader(file(filename, 'r+'))
         ret = []
