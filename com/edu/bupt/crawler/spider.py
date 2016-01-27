@@ -2,7 +2,10 @@
 __author__ = 'Administrator'
 
 
-import httplib, urllib, json, os, time
+import httplib
+import urllib
+import json
+import time
 from bs4 import BeautifulSoup
 
 '''
@@ -67,11 +70,11 @@ class Spider:
         # gender
         if len(soup.select('.gender')) > 0:
             if soup.select('.gender')[0].i['class'][1] == 'icon-profile-male':
-                gender = "男"
+                gender = "male"
             else:
-                gender = "女"
+                gender = "female"
         else:
-            gender = "未填写"
+            gender = "unknown"
 
         if len(soup.select('.business')) > 0:
             business = soup.select('.business')[0].string
@@ -94,7 +97,7 @@ class Spider:
 
 
 if __name__ == '__main__':
-    print("开始抓取关注的用户列表，总数100个...")
+    print("begin to fetch the followees, the amount of users is 100")
     headers = {
             'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'X-Requested-With': 'XMLHttpRequest',
@@ -107,15 +110,15 @@ if __name__ == '__main__':
     xsrf = "a2debc0aae4544e68412db1a03fabdb7"
     spider = Spider(hash_id, xsrf, 'www.zhihu.com', headers)
     for n in [0, 20, 40, 60, 80]:
-        print("正在抓取第 %d 至 %d" % (n, n + 20))
+        print("fetching the user %d to %d" % (n, n + 20))
         urls += spider.get_followees_user_home_url(0)
-        # 每请求一次暂停一秒，防止知乎屏蔽
+        # protect my spider from shielding by zhihu
         time.sleep(1)
 
-    print("正在根据用户列表获取用户信息...")
+    print("begin to get user information with the followee url...")
     for url in urls:
         users.append(spider.get_user(url))
-        # 每请求一次暂停一秒，防止知乎屏蔽
+        # protect my spider from shielding by zhihu
         time.sleep(1)
 
     for user in users:
