@@ -28,5 +28,8 @@ class FileUtils:
             ret.append(line[0].split(' '))
         return ret
 
+    # get CSV Reader
+    def getCsvReader(self, filename):
+        return csv.reader(file(filename, 'rb'))
 
 
