@@ -40,6 +40,7 @@ class DecisionTree:
         clf.fit(dummy_x, dummy_y)
         return clf
 
+
 # with open('dt_information_gain.dot', 'w') as f:
 #     f = export_graphviz(clf, feature_names=vec.get_feature_names(), out_file=f)
 
