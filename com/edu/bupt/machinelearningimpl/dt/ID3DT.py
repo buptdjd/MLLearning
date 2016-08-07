@@ -21,6 +21,7 @@ class ID3DTree:
     :return
             entropy of data
     '''
+
     @staticmethod
     def cal_shannon_entropy(data):
         # the size of training set
