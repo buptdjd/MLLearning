@@ -1,18 +1,14 @@
 from math import log
 from operator import itemgetter
+from com.edu.bupt.utils.FileUtils import *
 
 
 class ID3DTree:
     def __init__(self):
         pass
 
-    def __init__(self, data, label_set):
+    def __init__(self, data):
         self.data = data
-        self.label_set = label_set
-
-    @staticmethod
-    def get_label_set():
-        return label_set
 
     '''
     this method is used to calculate the entropy of data
@@ -133,6 +129,17 @@ class ID3DTree:
                 self.split_datasets(data, best_feature, value), sub_labels)
         return tree
 
+    '''
+    this method is used for predicting
+    :param tree_model
+            training model
+    :param feature_labels
+            the label of features
+    :param test
+            the testing data
+    :return
+            category of data
+    '''
     def predict(self, tree_model, feature_labels, test):
         first_str = tree_model.keys()[0]
         second_dict = tree_model[first_str]
@@ -145,14 +152,32 @@ class ID3DTree:
                     label = second_dict[key]
         return label
 
+
+def create_data(path):
+    file_utils = FileUtils()
+    reader = file_utils.getCsvReader(path)
+    data = []
+    for row in reader:
+        sub = []
+        for i in range(0, len(row)-1):
+            sub.append(float(row[i]))
+        sub.append(row[len(row)-1])
+        data.append(sub)
+    return data
+
 if __name__ == "__main__":
+    '''
     data = [[1, 1, 'yes'],
                [1, 0, 'no'],
                [0, 1, 'no'],
                [0, 1, 'no']]
     label_set = ['no surfacing', 'flippers']
-    tree = ID3DTree(data, label_set)
-    myTree = tree.create_tree(data, label_set)
+    '''
+    path = r"D:\Users\Michael\PycharmProjects\MLLearning\datasets\iris.data"
+    data_set = create_data(path)
+    feature_label = ['sepal length', 'sepal width', 'petal length', 'petal width']
+    tree = ID3DTree(data_set)
+    myTree = tree.create_tree(data_set, feature_label)
     print myTree
-    print tree.predict(myTree, tree.get_label_set(), [1, 0])
+    print tree.predict(myTree, feature_label, [6.5, 2.9, 5.2, 2.0])
 
