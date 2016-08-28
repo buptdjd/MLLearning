@@ -13,7 +13,7 @@ class KMeans:
     # param: X training data
     # param: k clusters
     # param: observer function to draw
-    # param: threshold
+    # param: threshold between old centers and new centers
     # param: max_iter maximum iterations
     def __init__(self, X, k, observer=None, threshold=1e-15, max_iter=300):
         n = len(X)
