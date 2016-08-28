@@ -10,6 +10,11 @@ class KMeans:
     def __init__(self):
         pass
 
+    # param: X training data
+    # param: k clusters
+    # param: observer function to draw
+    # param: threshold
+    # param: max_iter maximum iterations
     def __init__(self, X, k, observer=None, threshold=1e-15, max_iter=300):
         n = len(X)
         self.X = X
@@ -20,6 +25,10 @@ class KMeans:
         self.labels = np.zeros(n, dtype=int)
         self.centers = np.array(random.sample(X, k))
 
+    # param: X training data
+    # param: centers cluster point
+    # param: labels label for training data
+    # return: cost function for k-means
     def cal_J(self, X, centers, labels):
         n = len(X)
         _sum = 0
@@ -27,6 +36,10 @@ class KMeans:
             _sum += norm(X[i]-centers[labels[i]])
         return _sum
 
+    # param: X training data
+    # param: Y cluster
+    # return: the distance between training data and clusters
+    # we can convert k-means to operation of matrix
     def distmat(self, X, Y):
         n = len(X)
         m = len(Y)
@@ -35,6 +48,7 @@ class KMeans:
         xy = numpy.matlib.dot(X, Y.T)
         return np.tile(xx, (m, 1)).T+np.tile(yy, (n, 1))-2*xy
 
+    # training k-means
     def train(self):
         J_pre = self.cal_J(self.X, self.centers, self.labels)
         iter = 0
