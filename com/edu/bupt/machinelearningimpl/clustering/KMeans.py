@@ -100,6 +100,7 @@ if __name__ == '__main__':
         save_path = "D:\Users\Michael\PycharmProjects\MLLearning\ouput\kmeans\iter_%02d.png"
         plt.savefig(save_path % iter, format='png')
 
+
     kmeans = KMeans(X, 3, observer=observer)
     kmeans.train()
 
