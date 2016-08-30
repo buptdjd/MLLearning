@@ -50,3 +50,4 @@ if __name__ == '__main__':
     model = SVMClassifier(X, y)
     clf = model.train()
     svm_figure_generate(clf.coef_[0], clf.intercept_, clf.support_vectors_, X)
+
