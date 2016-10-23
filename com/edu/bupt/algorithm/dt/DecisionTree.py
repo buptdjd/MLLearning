@@ -1,13 +1,14 @@
 __author__ = 'jiangdon'
 
+
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.tree import export_graphviz
 from com.edu.bupt.utils.FileUtils import *
 
-class DecisionTree:
 
+class DecisionTree:
     def __init__(self):
         pass
 

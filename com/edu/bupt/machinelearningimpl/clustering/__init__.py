@@ -12,8 +12,8 @@ def distmat(X, Y):
     print np.tile(yy, (n, 1))
     return np.tile(xx, (m, 1)).T + np.tile(yy, (n, 1)) - 2 * xy
 
-x = np.array([[1, 2, 3], [4, 5, 6]])
-y = np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]])
+x = np.array([[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]])
+y = np.array([[1, 1, 1], [0, 1, 0], [0, 1, 1]])
 
 
 print distmat(x, y)

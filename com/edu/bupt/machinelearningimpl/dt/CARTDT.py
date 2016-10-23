@@ -1,7 +1,3 @@
-__author__ = 'jiangdon'
-
-
-from math import log
 from operator import itemgetter
 
 
@@ -9,6 +5,16 @@ class CARTDTree:
     def __init__(self):
         pass
 
+    '''
+    :param data
+        data set which will be split
+    :param axis
+        feature index
+    :param value
+        split the data set with the help of feature value
+    :return
+        data set
+    '''
     @staticmethod
     def split_data_set(data, axis, value):
         ret = []
@@ -19,6 +25,14 @@ class CARTDTree:
                 ret.append(part_1)
         return ret
 
+    '''
+    :param data
+        data set
+    :param flag
+        category
+    :return
+        best feature to split the data set
+    '''
     def choose_best_feature_to_split(self, data, flag):
         feature_num = len(data[0])-1
         best_gini = 10000000.0
@@ -37,6 +51,12 @@ class CARTDTree:
                 best_gini = gini
         return best_feature_index
 
+    '''
+    :param class_list
+        vote with the help of class_list
+    :return
+        category
+    '''
     def majority_cnt(self, class_list):
         class_count = {}
         for vote in class_list:
@@ -47,6 +67,16 @@ class CARTDTree:
         ret = sorted(class_count.iteritems(), key=itemgetter(1), reverse=True)
         return ret[0][0]
 
+    '''
+    :param data
+        data set
+    :param labels
+        feature name list
+    :param flag
+        category which is used for gini
+    :return
+        classification and regression tree model
+    '''
     def train(self, data, labels, flag):
         class_list = [vec[-1] for vec in data]
         if class_list.count(class_list[0]) == len(class_list):
@@ -65,6 +95,18 @@ class CARTDTree:
                 self.train(self.split_data_set(data, best_feature_index, value), sub_labels, flag)
         return tree
 
+    '''
+    :param model
+        classification and regression tree
+    :param labels
+        feature labels
+    :param test_set
+        one test case
+    :param flag
+        category which is used for gini
+    :param
+        category
+    '''
     def classify(self, model, labels, test_set, flag):
         first_str = list(model.keys())[0]
         second_dict = model[first_str]
@@ -78,6 +120,18 @@ class CARTDTree:
                     class_label = second_dict[key]
         return class_label
 
+    '''
+    :param model
+        classification and regression tree model
+    :param labels
+        feature labels
+    :param test_data
+        data set for testing
+    :param flag
+        category which is used for gini
+    :return
+        category
+    '''
     def classify_all(self, model, labels, test_data, flag):
         class_label_all = []
         for test_set in test_data:
